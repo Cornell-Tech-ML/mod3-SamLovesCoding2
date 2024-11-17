@@ -29,9 +29,8 @@ class Network(minitorch.Module):
         self.layer3 = Linear(hidden, 1, backend)
 
     def forward(self, x):
-        # TODO: Implement for Task 3.5.
-        raise NotImplementedError("Need to implement for Task 3.5")
-
+        batch_size, input_size = x.shape
+        return input_tensor.view(batch_size, input_size) @ self.weights.value + self.bias.value
 
 class Linear(minitorch.Module):
     def __init__(self, in_size, out_size, backend):
