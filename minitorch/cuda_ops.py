@@ -329,8 +329,30 @@ def tensor_reduce(
         out_pos = cuda.blockIdx.x
         pos = cuda.threadIdx.x
 
-        # TODO: Implement for Task 3.3.
-        raise NotImplementedError("Need to implement for Task 3.3")
+        cache[pos] = reduce_value
+
+        if out_pos < out_size:
+            to_index(out_pos, out_shape, out_index)
+            o = index_to_position(out_index, out_strides)
+
+            out_index[reduce_dim] = out_index[reduce_dim] * BLOCK_DIM + pos
+            if out_index[reduce_dim] < a_shape[reduce_dim]:
+                in_a = index_to_position(out_index, a_strides)
+                cache[pos] = a_storage[in_a]
+            cuda.syncthreads()
+
+            x = 0
+            while (2 ** x) < BLOCK_DIM:
+                j = 2 ** x
+                if pos % (j * 2) == 0:
+                    cache[pos] = fn(cache[pos], cache[pos + j])
+                cuda.syncthreads()
+                x += 1
+
+            # Write result to output
+            if pos == 0:
+                out[o] = cache[0]
+
 
     return jit(_reduce)  # type: ignore
 
