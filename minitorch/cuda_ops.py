@@ -185,6 +185,7 @@ def tensor_map(
             o = index_to_position(out_index, out_strides)
         j = index_to_position(in_index, in_strides)
         out[o] = fn(in_storage[j])
+
     return cuda.jit()(_map)  # type: ignore
 
 
@@ -233,6 +234,7 @@ def tensor_zip(
             j = index_to_position(a_index, a_strides)
             k = index_to_position(b_index, b_strides)
             out[o] = fn(a_storage[j], b_storage[k])
+
     return cuda.jit()(_zip)  # type: ignore
 
 
@@ -269,7 +271,6 @@ def _sum_practice(out: Storage, a: Storage, size: int) -> None:
     cuda.syncthreads()
 
     stride = BLOCK_DIM // 2
-
 
     while stride > 0:
         if pos < stride:
@@ -342,8 +343,8 @@ def tensor_reduce(
             cuda.syncthreads()
 
             x = 0
-            while (2 ** x) < BLOCK_DIM:
-                j = 2 ** x
+            while (2**x) < BLOCK_DIM:
+                j = 2**x
                 if pos % (j * 2) == 0:
                     cache[pos] = fn(cache[pos], cache[pos + j])
                 cuda.syncthreads()
@@ -351,7 +352,6 @@ def tensor_reduce(
 
             if pos == 0:
                 out[o] = cache[0]
-
 
     return jit(_reduce)  # type: ignore
 
@@ -388,28 +388,27 @@ def _mm_practice(out: Storage, a: Storage, b: Storage, size: int) -> None:
 
     """
     BLOCK_DIM = 32
-    
+
     a_shared = cuda.shared.array((BLOCK_DIM, BLOCK_DIM), numba.float64)
     b_shared = cuda.shared.array((BLOCK_DIM, BLOCK_DIM), numba.float64)
-    
+
     # Get thread indices
     i = cuda.threadIdx.x
     j = cuda.threadIdx.y
 
     if i >= size or j >= size:
-            return
+        return
     a_shared[i, j] = a[size * i + j]
     b_shared[i, j] = b[size * i + j]
     cuda.syncthreads()
-    
+
     # Compute matrix multiplication
     accum = 0.0
     for k in range(size):
         accum += a_shared[i, k] * b_shared[k, j]
-        
+
     # Write result to global memory - only write once
     out[size * i + j] = accum
-    
 
 
 jit_mm_practice = jit(_mm_practice)
@@ -486,7 +485,7 @@ def _tensor_matrix_multiply(
             a_shared[pi, pj] = a_storage[
                 a_batch_stride * batch + a_strides[1] * i + a_strides[2] * k
             ]
-        
+
         k = k_start + pi
         if j < b_shape[2] and k < b_shape[1]:
             b_shared[pi, pj] = b_storage[
@@ -501,5 +500,6 @@ def _tensor_matrix_multiply(
     # Write result to global memory - only once per thread
     if i < out_shape[1] and j < out_shape[2]:
         out[out_strides[0] * batch + out_strides[1] * i + out_strides[2] * j] = accum
+
 
 tensor_matrix_multiply = jit(_tensor_matrix_multiply)
