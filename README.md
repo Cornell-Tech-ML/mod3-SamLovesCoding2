@@ -33,6 +33,22 @@ The files that will be synced are:
 
 
 
+
+testing log on google colab:
+======================================= test session starts ========================================
+platform linux -- Python 3.12.7, pytest-8.3.2, pluggy-1.5.0
+rootdir: /content/mod3-SamLovesCoding2
+configfile: pyproject.toml
+plugins: hypothesis-6.54.0, env-1.1.4
+collected 117 items                                                                                
+
+tests/test_tensor_general.py ............................................................... [ 53%]
+......................................................                                       [100%]
+
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+========================== 117 passed, 4435 warnings in 251.54s (0:04:11) ==========================
+
 MAP
  
 ================================================================================
@@ -352,54 +368,61 @@ Allocation hoisting:
 No allocation hoisting found
 None
 
+
+
+
+
+
+
+!cd $DIR; PYTHONPATH=/content/$DIR python3.12 project/run_fast_tensor.py --BACKEND gpu --HIDDEN 100 --DATASET split --RATE 0.05
 Output:
-Epoch  0  loss  7.351541091489092 correct 36
-Epoch  10  loss  4.805405728655161 correct 33
-Epoch  20  loss  4.303599261110358 correct 46
-Epoch  30  loss  3.449123826804211 correct 41
-Epoch  40  loss  3.8340412034416707 correct 46
-Epoch  50  loss  2.2861239343750164 correct 42
-Epoch  60  loss  3.1777661503646466 correct 46
-Epoch  70  loss  2.550529954225381 correct 45
-Epoch  80  loss  4.940155400860307 correct 45
-Epoch  90  loss  0.7739309969315697 correct 44
-Epoch  100  loss  2.325800232570478 correct 45
-Epoch  110  loss  1.2407219025793332 correct 47
-Epoch  120  loss  1.480178729303829 correct 45
-Epoch  130  loss  2.479566054930298 correct 49
-Epoch  140  loss  1.1776021109770451 correct 50
-Epoch  150  loss  1.6981398286312783 correct 46
-Epoch  160  loss  1.1616417143538238 correct 49
-Epoch  170  loss  2.561043569717289 correct 47
-Epoch  180  loss  2.33607513684057 correct 49
-Epoch  190  loss  0.5168462448666628 correct 48
-Epoch  200  loss  1.1854311023470765 correct 46
-Epoch  210  loss  1.7821841168122146 correct 49
-Epoch  220  loss  1.2143710212863361 correct 48
-Epoch  230  loss  0.41756841002901124 correct 50
-Epoch  240  loss  0.4586207875870848 correct 46
-Epoch  250  loss  0.22996862400621296 correct 48
-Epoch  260  loss  1.2291256897242082 correct 49
-Epoch  270  loss  1.2003606420843793 correct 49
-Epoch  280  loss  0.3310272100555054 correct 50
-Epoch  290  loss  0.7742355411998781 correct 49
-Epoch  300  loss  6.437805775095629 correct 47
-Epoch  310  loss  0.3540865883786318 correct 50
-Epoch  320  loss  1.1887409660405983 correct 48
-Epoch  330  loss  0.925147466688982 correct 48
-Epoch  340  loss  3.368174209333267 correct 47
-Epoch  350  loss  0.37387520426218157 correct 46
-Epoch  360  loss  0.30934390360360325 correct 49
-Epoch  370  loss  0.10962324252268077 correct 45
-Epoch  380  loss  0.5656988330743559 correct 49
-Epoch  390  loss  0.6366606529755319 correct 47
-Epoch  400  loss  0.4173652543565443 correct 50
-Epoch  410  loss  1.2168508646146265 correct 49
-Epoch  420  loss  2.0390900417852267 correct 48
-Epoch  430  loss  0.4322461496086084 correct 49
-Epoch  440  loss  0.5247526061541528 correct 50
-Epoch  450  loss  1.1107939606161903 correct 49
-Epoch  460  loss  0.37175802437712235 correct 49
-Epoch  470  loss  0.249750910863629 correct 49
-Epoch  480  loss  0.7629352897048698 correct 48
-Epoch  490  loss  0.45000384840859536 correct 49
+Epoch  0  loss  7.2922255695146845 correct 28
+Epoch  10  loss  4.915612246233167 correct 43
+Epoch  20  loss  5.035798662073198 correct 45
+Epoch  30  loss  4.073779510245649 correct 48
+Epoch  40  loss  5.940754087808721 correct 46
+Epoch  50  loss  2.5890127543859993 correct 48
+Epoch  60  loss  2.8429055305428244 correct 43
+Epoch  70  loss  1.5508064680653104 correct 49
+Epoch  80  loss  1.749785154876713 correct 50
+Epoch  90  loss  0.8964344132519654 correct 49
+Epoch  100  loss  0.45658764623099074 correct 49
+Epoch  110  loss  0.6048679420629817 correct 49
+Epoch  120  loss  0.6511420861257535 correct 49
+Epoch  130  loss  0.795121159213063 correct 50
+Epoch  140  loss  2.1697621078907963 correct 48
+Epoch  150  loss  0.6136973473499121 correct 50
+Epoch  160  loss  1.0080943486245653 correct 50
+Epoch  170  loss  0.107569387343013 correct 50
+Epoch  180  loss  1.9244270264163854 correct 48
+Epoch  190  loss  0.41912291604416335 correct 49
+Epoch  200  loss  0.19149205185450682 correct 50
+Epoch  210  loss  1.1747620896746487 correct 49
+Epoch  220  loss  0.2243843175041054 correct 50
+Epoch  230  loss  0.1791852744619677 correct 50
+Epoch  240  loss  0.8507793358280205 correct 50
+Epoch  250  loss  0.5460500191772893 correct 50
+Epoch  260  loss  0.86719987190774 correct 50
+Epoch  270  loss  0.16156670292809466 correct 49
+Epoch  280  loss  1.3277565473880926 correct 50
+Epoch  290  loss  0.10218178747288134 correct 50
+Epoch  300  loss  0.1309631263364095 correct 50
+Epoch  310  loss  1.2655094045446402 correct 50
+Epoch  320  loss  0.3328852962717396 correct 50
+Epoch  330  loss  1.2352179048171212 correct 50
+Epoch  340  loss  0.22035414942734252 correct 49
+Epoch  350  loss  0.051244417864177674 correct 50
+Epoch  360  loss  0.25672060883274095 correct 49
+Epoch  370  loss  0.31037618233155356 correct 49
+Epoch  380  loss  0.011889519620869085 correct 50
+Epoch  390  loss  0.0932743347628206 correct 49
+Epoch  400  loss  0.030058845566652545 correct 50
+Epoch  410  loss  0.666420835969128 correct 50
+Epoch  420  loss  0.11619804319713775 correct 50
+Epoch  430  loss  0.16594170287863563 correct 49
+Epoch  440  loss  0.8937706997262358 correct 50
+Epoch  450  loss  0.709327504667639 correct 49
+Epoch  460  loss  0.5793223289697177 correct 50
+Epoch  470  loss  0.3439185813391107 correct 50
+Epoch  480  loss  0.03481784181024232 correct 49
+Epoch  490  loss  0.09391081666923072 correct 50
