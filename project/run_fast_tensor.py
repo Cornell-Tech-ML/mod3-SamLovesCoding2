@@ -90,8 +90,8 @@ class FastTrain:
             # Logging
             start = time.time()
             if epoch % 10 == 0 or epoch == max_epochs:
-                
-                
+
+
                 X = minitorch.tensor(data.X, backend=self.backend)
                 y = minitorch.tensor(data.y, backend=self.backend)
                 out = self.model.forward(X).view(y.shape[0])
