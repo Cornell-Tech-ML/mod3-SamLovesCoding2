@@ -90,14 +90,14 @@ class FastTrain:
             # Logging
             start = time.time()
             if epoch % 10 == 0 or epoch == max_epochs:
-                end = time.time()
+                
                 elapsed = end - start
                 X = minitorch.tensor(data.X, backend=self.backend)
                 y = minitorch.tensor(data.y, backend=self.backend)
                 out = self.model.forward(X).view(y.shape[0])
                 y2 = minitorch.tensor(data.y)
                 correct = int(((out.detach() > 0.5) == y2).sum()[0])
-
+                end = time.time()
                 log_fn(epoch, total_loss, correct, losses)
                 print(f"Time for last 10 epochs: {elapsed:.2f} seconds")
                 start = time.time()
